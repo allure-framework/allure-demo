@@ -50,3 +50,7 @@ task pushDockerImage(dependsOn: buildDockerImage, type: DockerPushImage) {
     imageName "allure/${project.name}"
     tag allureVersion
 }
+
+task publishDockerImage() {
+    dependsOn buildDockerImage, pushDockerImage
+}
