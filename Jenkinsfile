@@ -15,6 +15,19 @@ pipeline {
                 sh "./allure-${ALLURE_VERSION}/bin/allure generate allure-results"
             }
         }
+        stage("Build") {
+            steps {
+                sh "docker build -t allure/allure-demo:${ALLURE_VERSION} allure-report"
+            }
+        }
+        stage("Publish") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'qameta-ci_docker',
+                        usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "docker push allure/allure-demo:${ALLURE_VERSION}"
+                }
+            }
+        }
     }
     post {
         always {
