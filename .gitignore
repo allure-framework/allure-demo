@@ -1,2 +1,9 @@
 # Idea files
 .idea
+*.iml
+
+# Gradle
+build
+
+# Allure
+allure-report
