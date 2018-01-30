@@ -17,7 +17,7 @@ pipeline {
         }
         stage("Build") {
             steps {
-                sh "docker build -t allure/allure-demo:${ALLURE_VERSION} allure-report"
+                sh "docker build -t allure/allure-demo:${ALLURE_VERSION}"
             }
         }
         stage("Publish") {
