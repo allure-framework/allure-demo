@@ -12,7 +12,7 @@ pipeline {
         }
         stage("Generate") {
             steps {
-                sh "./allure-${ALLURE_VERSION}/bin/allure.sh generate allure-results"
+                sh "./allure-${ALLURE_VERSION}/bin/allure generate allure-results"
             }
         }
     }
