@@ -18,7 +18,6 @@ buildscript {
 }
 
 ext {
-    allureVersion = '2.5.0'
     gradleScriptDir = "${rootProject.projectDir}/gradle"
 }
 
