@@ -22,7 +22,7 @@ ext {
     gradleScriptDir = "${rootProject.projectDir}/gradle"
 }
 
-apply from: "${gradleScriptDir}/release.gradle"
+apply from: "${gradleScriptDir}/docker.gradle"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.5'
