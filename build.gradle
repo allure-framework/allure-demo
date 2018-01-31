@@ -19,9 +19,10 @@ buildscript {
 
 ext {
     allureVersion = '2.5.0'
+    gradleScriptDir = "${rootProject.projectDir}/gradle"
 }
 
-apply plugin: 'com.bmuschko.docker-remote-api'
+apply from: "${gradleScriptDir}/release.gradle"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.5'
