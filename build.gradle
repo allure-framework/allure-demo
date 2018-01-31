@@ -39,7 +39,7 @@ task unzipAllure(dependsOn: downloadAllure, type: Copy) {
 }
 
 task generateReport(dependsOn: unzipAllure, type:Exec) {
-    commandLine "${buildDir}/allure-${allureVersion}/bin/allure", 'generate', '../allure-results'
+    commandLine "${buildDir}/allure-${allureVersion}/bin/allure", 'generate', 'allure-results'
 }
 
 task buildDockerImage(type: DockerBuildImage) {
