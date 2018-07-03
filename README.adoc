@@ -1,0 +1,20 @@
+= Allure Demo
+
+This repository powers *demo.qameta.io*, which includes demos for the
+https://github.com/allure-framework[Allure Framework].
+
+== Getting started
+
+`./gradlew build -PallureVersion=...`
+
+Demo will be generated in the `allure-report/index.html` path.
+
+== Contributing
+Allure's demos is open source. We strongly encourage (and value!) any contributions from the community.
+
+Contributions include:
+
+* General content improvement: typo fixes and sentence clarifications
+* New content: demos for new features and guides for common use cases
+
+Please feel free to open an issue or a pull request. See the _Contributing Guide_ for more information.

@@ -3,6 +3,7 @@
 *.iml
 
 # Gradle
+.gradle
 build
 
 # Allure
