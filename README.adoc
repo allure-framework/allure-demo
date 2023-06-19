@@ -1,6 +1,5 @@
 = Allure Demo
 
-
 This repository powers *allure-demo*, which includes demos for the
 https://github.com/allure-framework[Allure Framework].
 
