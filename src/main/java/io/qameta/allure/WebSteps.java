@@ -1,15 +1,12 @@
 package io.qameta.allure;
 
-import io.qameta.allure.Attachment;
-import io.qameta.allure.Step;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -29,13 +26,15 @@ public class WebSteps {
 
     @Step("Open issues page `{owner}/{repo}`")
     public void openIssuesPage(final String owner, final String repo) {
-        attachPageSource();
+        attachPageSourceIssueList();
+        attachScreenshotIssueList();
         maybeThrowElementNotFoundException();
     }
 
     @Step("Open pull requests page `{owner}/{repo}`")
     public void openPullRequestsPage(final String owner, final String repo) {
-        attachPageSource();
+        attachPageSourcePrList();
+        attachScreenshotPrList();
         maybeThrowElementNotFoundException();
     }
 
@@ -46,6 +45,8 @@ public class WebSteps {
 
     @Step("Create issue with title `{title}`")
     public void createIssueWithTitle(String title) {
+        attachPageSourceIssueCreateForm();
+        attachScreenshotIssueCreateForm();
         maybeThrowAssertionException(title);
     }
 
@@ -79,11 +80,42 @@ public class WebSteps {
         maybeThrowAssertionException(title);
     }
 
-    @Attachment(value = "Page", type = "text/html", fileExtension = "html")
-    public byte[] attachPageSource() {
-        try {
-            final InputStream stream = ClassLoader.getSystemResourceAsStream("index.html");
-            return IOUtils.toString(stream, Charset.forName("UTF-8")).getBytes();
+    @Attachment(value = "Issue Create Form", type = "text/html", fileExtension = "html")
+    public byte[] attachPageSourceIssueCreateForm() {
+        return addAttachment("issue-create-form.html");
+    }
+
+    @Attachment(value = "Screenshot", fileExtension = "png")
+    public byte[] attachScreenshotIssueCreateForm() {
+        return addAttachment("issue-create-form.png");
+    }
+
+    @Attachment(value = "Issue List", type = "text/html", fileExtension = "html")
+    public byte[] attachPageSourceIssueList() {
+        return addAttachment("issue-list.html");
+    }
+
+    @Attachment(value = "Screenshot", fileExtension = "png")
+    public byte[] attachScreenshotIssueList() {
+        return addAttachment("issue-list.png");
+    }
+
+    @Attachment(value = "Pull Request List", type = "text/html", fileExtension = "html")
+    public byte[] attachPageSourcePrList() {
+        return addAttachment("pr-list.html");
+    }
+
+    @Attachment(value = "Screenshot", fileExtension = "png")
+    public byte[] attachScreenshotPrList() {
+        return addAttachment("pr-list.png");
+    }
+
+    private byte[] addAttachment(final String resourceName) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourceName)) {
+            if (Objects.isNull(is)) {
+                throw new IllegalStateException("could not find resource");
+            }
+            return IOUtils.toByteArray(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -114,32 +146,32 @@ public class WebSteps {
 
     private boolean isTimeToThrowException() {
         return new Random().nextBoolean()
-                && new Random().nextBoolean()
-                && new Random().nextBoolean()
-                && new Random().nextBoolean();
+               && new Random().nextBoolean()
+               && new Random().nextBoolean()
+               && new Random().nextBoolean();
     }
 
     private String webDriverIsNotReachable(final String text) {
         return String.format("WebDriverException: chrome not reachable\n" +
-                "Element not found {By.xpath: //a[@href='/eroshenkoam/allure-example']}\n" +
-                "Expected: text '%s'\n" +
-                "Page source: file:/Users/eroshenkoam/Developer/eroshenkoam/webdriver-coverage-example/build/reports/tests/1603973861960.0.html\n" +
-                "Timeout: 4 s.", text);
+                             "Element not found {By.xpath: //a[@href='./allure-demo']}\n" +
+                             "Expected: text '%s'\n" +
+                             "Page source: file:./allure-demo/build/reports/tests/1603973861960.0.html\n" +
+                             "Timeout: 4 s.", text);
     }
 
     private String textEqual(final String expected, final String actual) {
-        return String.format("Element should text '%s' {By.xpath: //a[@href='/eroshenkoam/allure-example']}\n" +
-                "Element: '<a class=\"v-align-middle\">%s</a>'\n" +
-                "Screenshot: file:/Users/eroshenkoam/Developer/eroshenkoam/webdriver-coverage-example/build/reports/tests/1603973703632.0.png\n" +
-                "Page source: file:/Users/eroshenkoam/Developer/eroshenkoam/webdriver-coverage-example/build/reports/tests/1603973703632.0.html\n" +
-                "Timeout: 4 s.\n", expected, actual);
+        return String.format("Element should text '%s' {By.xpath: //a[@href='./allure-demo']}\n" +
+                             "Element: '<a class=\"v-align-middle\">%s</a>'\n" +
+                             "Screenshot: file:./allure-demo/build/reports/tests/1603973703632.0.png\n" +
+                             "Page source: file:./allure-demo/build/reports/tests/1603973703632.0.html\n" +
+                             "Timeout: 4 s.\n", expected, actual);
     }
 
-    private String elementNotFoundMessage(String selector) {
+    private String elementNotFoundMessage(final String selector) {
         return String.format("Element not found {By.xpath: %s}\n" +
-                "Expected: visible or transparent: visible or have css value opacity=0\n" +
-                "Screenshot: file:/Users/eroshenkoam/Developer/eroshenkoam/webdriver-coverage-example/build/reports/tests/1603973516437.0.png\n" +
-                "Page source: file:/Users/eroshenkoam/Developer/eroshenkoam/webdriver-coverage-example/build/reports/tests/1603973516437.0.html\n" +
-                "Timeout: 4 s.\n", selector);
+                             "Expected: visible or transparent: visible or have css value opacity=0\n" +
+                             "Screenshot: file:./allure-demo/build/reports/tests/1603973516437.0.png\n" +
+                             "Page source: file:./allure-demo/build/reports/tests/1603973516437.0.html\n" +
+                             "Timeout: 4 s.\n", selector);
     }
 }

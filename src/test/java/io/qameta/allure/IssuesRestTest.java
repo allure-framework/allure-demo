@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 @Layer("rest")
 @Owner("baev")
 @Feature("Issues")
-public class IssuesRestTest {
+class IssuesRestTest {
 
     private static final String OWNER = "allure-framework";
     private static final String REPO = "allure2";
@@ -21,7 +21,7 @@ public class IssuesRestTest {
     @Tags({@Tag("api"), @Tag("smoke")})
     @ParameterizedTest(name = "Create issue via api")
     @ValueSource(strings = {"First Note", "Second Note"})
-    public void shouldCreateUserNote(@Param(value = "Title") String title) {
+    void shouldCreateUserNote(@Param(value = "Title") String title) {
         steps.createIssueWithTitle(OWNER, REPO, title);
         steps.shouldSeeIssueWithTitle(OWNER, REPO, title);
     }
@@ -33,10 +33,9 @@ public class IssuesRestTest {
     @JiraIssues({@JiraIssue("AE-1")})
     @ParameterizedTest(name = "Close issue via api")
     @ValueSource(strings = {"First Note", "Second Note"})
-    public void shouldDeleteUserNote(@Param(value = "Title") String title) {
+    void shouldDeleteUserNote(@Param(value = "Title") String title) {
         steps.createIssueWithTitle(OWNER, REPO, title);
         steps.closeIssueWithTitle(OWNER, REPO, title);
     }
-
 
 }

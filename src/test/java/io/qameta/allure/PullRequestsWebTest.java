@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @Layer("web")
 @Owner("eroshenkoam")
 @Feature("Pull Requests")
-public class PullRequestsWebTest {
+class PullRequestsWebTest {
 
     private static final String OWNER = "allure-framework";
     private static final String REPO = "allure2";
@@ -23,7 +23,7 @@ public class PullRequestsWebTest {
     private final WebSteps steps = new WebSteps();
 
     @BeforeEach
-    public void startDriver() {
+    void startDriver() {
         steps.startDriver();
     }
 
@@ -34,7 +34,7 @@ public class PullRequestsWebTest {
     @Tags({@Tag("web"), @Tag("regress"), @Tag("smoke")})
     @JiraIssues({@JiraIssue("AE-1"), @JiraIssue("AE-2")})
     @DisplayName("Creating new issue for authorized user")
-    public void shouldCreatePullRequest() {
+    void shouldCreatePullRequest() {
         steps.openPullRequestsPage(OWNER, REPO);
         steps.createPullRequestFromBranch(BRANCH);
         steps.shouldSeePullRequestForBranch(BRANCH);
@@ -47,7 +47,7 @@ public class PullRequestsWebTest {
     @Story("Close existing pull request")
     @Tags({@Tag("web"), @Tag("regress")})
     @DisplayName("Deleting existing issue for authorized user")
-    public void shouldClosePullRequest() {
+    void shouldClosePullRequest() {
         steps.openPullRequestsPage(OWNER, REPO);
         steps.createPullRequestFromBranch(BRANCH);
         steps.closePullRequestForBranch(BRANCH);
@@ -55,7 +55,7 @@ public class PullRequestsWebTest {
     }
 
     @AfterEach
-    public void stopDriver() {
+    void stopDriver() {
         steps.stopDriver();
     }
 

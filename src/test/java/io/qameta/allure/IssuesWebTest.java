@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @Layer("web")
 @Owner("eroshenkoam")
 @Feature("Issues")
-public class IssuesWebTest {
+class IssuesWebTest {
 
     private static final String OWNER = "allure-framework";
     private static final String REPO = "allure2";
@@ -23,7 +23,7 @@ public class IssuesWebTest {
     private final WebSteps steps = new WebSteps();
 
     @BeforeEach
-    public void startDriver() {
+    void startDriver() {
         steps.startDriver();
     }
 
@@ -34,7 +34,7 @@ public class IssuesWebTest {
     @JiraIssues({@JiraIssue("AE-2")})
     @Tags({@Tag("web"), @Tag("critical")})
     @DisplayName("Creating new issue authorized user")
-    public void shouldCreateIssue() {
+    void shouldCreateIssue() {
         steps.openIssuesPage(OWNER, REPO);
         steps.createIssueWithTitle(ISSUE_TITLE);
         steps.shouldSeeIssueWithTitle(ISSUE_TITLE);
@@ -47,7 +47,7 @@ public class IssuesWebTest {
     @Tags({@Tag("web"), @Tag("regress")})
     @JiraIssues({@JiraIssue("AE-1")})
     @DisplayName("Closing new issue for authorized user")
-    public void shouldCloseIssue() {
+    void shouldCloseIssue() {
         steps.openIssuesPage(OWNER, REPO);
         steps.createIssueWithTitle(ISSUE_TITLE);
         steps.closeIssueWithTitle(ISSUE_TITLE);
@@ -55,7 +55,7 @@ public class IssuesWebTest {
     }
 
     @AfterEach
-    public void stopDriver() {
+    void stopDriver() {
         steps.stopDriver();
     }
 

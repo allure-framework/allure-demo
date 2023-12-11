@@ -1,53 +1,58 @@
 plugins {
     java
-    id("io.qameta.allure") version "2.9.4"
+}
+
+tasks.withType(Wrapper::class) {
+    gradleVersion = "8.5"
 }
 
 group = "io.eroshenkoam"
 version = version
 
-allure {
-    report {
-        version.set("2.18.1")
-    }
-    adapter {
-        autoconfigure.set(true)
-        aspectjWeaver.set(true)
-        frameworks {
-            junit5 {
-                adapterVersion.set("2.18.1")
-            }
-        }
+val allureVersion = "2.24.0"
+val aspectJVersion = "1.9.20.1"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 tasks.withType(JavaCompile::class) {
-    sourceCompatibility = "${JavaVersion.VERSION_1_8}"
-    targetCompatibility = "${JavaVersion.VERSION_1_8}"
     options.encoding = "UTF-8"
+    options.compilerArgs.add("-parameters")
 }
 
-tasks.withType(Test::class) {
-    ignoreFailures = true
-    useJUnitPlatform {
+val agent: Configuration by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = true
+}
 
-    }
+tasks.test {
+    ignoreFailures = true
+    useJUnitPlatform()
+    jvmArgs = listOf(
+        "-javaagent:${agent.singleFile}"
+    )
     systemProperty("junit.jupiter.execution.parallel.enabled", "true")
     systemProperty("junit.jupiter.execution.parallel.config.strategy", "dynamic")
-
-    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
-}
-
-
-repositories {
-    mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
-    implementation("commons-io:commons-io:2.6")
-    implementation("io.qameta.allure:allure-java-commons:2.14.0")
-    implementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
-    implementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-    implementation("org.junit.jupiter:junit-jupiter-params:5.7.2")
+    agent("org.aspectj:aspectjweaver:$aspectJVersion")
+
+    implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
+    implementation("io.qameta.allure:allure-junit5")
+
+    implementation(platform("org.junit:junit-bom:5.10.1"))
+    implementation("org.junit.jupiter:junit-jupiter-api")
+    implementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    implementation("commons-io:commons-io:2.15.1")
+    testImplementation("org.slf4j:slf4j-simple:2.0.9")
+}
+
+repositories {
+    mavenCentral()
 }
