@@ -9,8 +9,8 @@ tasks.withType(Wrapper::class) {
 group = "io.eroshenkoam"
 version = version
 
-val allureVersion = "2.24.0"
-val aspectJVersion = "1.9.20.1"
+val allureVersion = "2.32.0"
+val aspectJVersion = "1.9.25.1"
 
 java {
     toolchain {
@@ -44,13 +44,13 @@ dependencies {
     implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     implementation("io.qameta.allure:allure-junit5")
 
-    implementation(platform("org.junit:junit-bom:5.10.1"))
+    implementation(platform("org.junit:junit-bom:6.0.2"))
     implementation("org.junit.jupiter:junit-jupiter-api")
     implementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    implementation("commons-io:commons-io:2.15.1")
-    testImplementation("org.slf4j:slf4j-simple:2.0.9")
+    implementation("commons-io:commons-io:2.21.0")
+    testImplementation("org.slf4j:slf4j-simple:2.0.17")
 }
 
 repositories {
