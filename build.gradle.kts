@@ -3,7 +3,7 @@ plugins {
 }
 
 tasks.withType(Wrapper::class) {
-    gradleVersion = "8.5"
+    gradleVersion = "9.3.1"
 }
 
 group = "io.eroshenkoam"
