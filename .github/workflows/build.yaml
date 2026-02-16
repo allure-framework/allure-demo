@@ -1,5 +1,10 @@
 name: Build
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   pull_request:
     branches:
@@ -33,10 +38,10 @@ jobs:
           allure_results: build/allure-results
           allure_history: allure-history
           keep_reports: 20
-      - name: Publish Report
+      - name: Publish Allure Report
         if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
