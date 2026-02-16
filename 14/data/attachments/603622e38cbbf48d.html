@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Issues List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #333;
+        }
+        .container {
+            width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #24292e;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 10px;
+        }
+        .issues-list {
+            list-style: none;
+            padding: 0;
+        }
+        .issue {
+            padding: 10px;
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            align-items: center;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .issue-number {
+            margin-right: 10px;
+            color: #586069;
+        }
+        .issue-title {
+            flex-grow: 1;
+        }
+        .issue-label {
+            padding: 3px 10px;
+            background-color: #e1e4e8;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Issues</h2>
+    <ul class="issues-list">
+        <li class="issue">
+            <span class="issue-number">#1</span>
+            <span class="issue-title">Fix the header alignment issue</span>
+            <span class="issue-label">bug</span>
+        </li>
+        <li class="issue">
+            <span class="issue-number">#2</span>
+            <span class="issue-title">Add unit tests for user service</span>
+            <span class="issue-label">enhancement</span>
+        </li>
+        <li class="issue">
+            <span class="issue-number">#3</span>
+            <span class="issue-title">Update documentation for API v2</span>
+            <span class="issue-label">documentation</span>
+        </li>
+        <!-- Repeat for more issues -->
+    </ul>
+</div>
+
+</body>
+</html>
