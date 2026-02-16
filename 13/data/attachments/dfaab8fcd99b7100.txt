@@ -1,0 +1,17 @@
+{
+  "title": "Bug Report: Application crashes on data import",
+  "body": "There's a recurring issue where the application crashes when importing large data sets. This seems to happen consistently with files over 100MB. Steps to reproduce: 1. Open the data import tool. 2. Attempt to import a file larger than 100MB. Expected behavior: The file should import successfully. Actual behavior: The application crashes with an error message about memory allocation.",
+  "labels": ["bug", "high priority", "needs review"],
+  "assignees": ["developer1", "developer2"],
+  "milestone": 2,
+  "comments": [
+    {
+      "user": "manager",
+      "comment": "This needs urgent attention. Affecting key clients."
+    },
+    {
+      "user": "developer1",
+      "comment": "Started working on this, looking into memory management issues."
+    }
+  ]
+}
