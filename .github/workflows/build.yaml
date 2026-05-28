@@ -32,7 +32,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
       - name: Build Report
-        uses: simple-elf/allure-report-action@v1.13
+        uses: simple-elf/allure-report-action@v1.14
         if: always()
         with:
           allure_results: build/allure-results
